@@ -1,0 +1,50 @@
+body {
+    font-family: 'PT Sans', sans-serif;
+}
+.rectangle {
+    height: 50px;
+    width: 200px;
+    line-height: 45px;
+    background-color: gainsboro;
+    margin-right: 15px;
+    float: left;
+    margin-top: 10px;
+}
+.container {
+    padding: 200px;
+}
+.filters {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.writing {
+    margin-left: 15px;
+}
+.clearfix {
+    clear: both;
+}
+.float-left {
+    float: left;
+}
+.ml-130 {
+    margin-left: 130px;
+}
+.ml-60 {
+    margin-left: 60px;
+}
+.rectangle2 {
+    height: 50px;
+    width: 200px;
+    line-height: 45px;
+    background-color: red;
+    margin-right: 15px;
+    float: left;
+    margin-top: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    color: whitesmoke;
+}
+.stripe {
+    border-bottom: 1px solid dimgray;
+    width: 630px;
+}
