@@ -2,12 +2,23 @@
 require_once "helpers.php";
 
 // przypisanie do zmienne adresu url z którego zostaną pobrane dane
-//$dataUrl = "https://fantasy.premierleague.com/api/bootstrap-static/";
+$dataUrl = "https://fantasy.premierleague.com/api/bootstrap-static/";
 // pobranie danych ze strony i zapisanie ich do zmiennej (na tym etapie jest to w formacie json)
-//$jsonData = file_get_contents($dataUrl);
+$jsonData = file_get_contents($dataUrl);
 // zmian formatu json na tablicę (odkodowanie)
-//$data = json_decode($jsonData, true);
+$data = json_decode($jsonData, true);
 //v($data);
+//foreach ();
+
+if (isset($_POST['submit'])) {
+    $team = $_POST['team'];
+    $name = $_POST['name'];
+    $number = $_POST['number'];
+    v($team);
+    v($name);
+    v($number);
+}
+
 
 ?>
 
@@ -28,24 +39,28 @@ require_once "helpers.php";
 
 <div class="container">
     <div class="filters">Filtry</div>
-    <div class="float-left ">Podaj zespół</div>
-    <div class="float-left ml-130">Podaj nazwisko gracza</div>
-    <div class="float-left ml-60">Podaj nazwisko gracza</div> <br>
-    <div class="clearfix"></div>
-    <div class="rectangle">
-        <div class="writing">Liverpool</div>
+    <form method="post">
+        <div class="float-left ">Podaj zespół</div>
+        <div class="float-left ml-130">Podaj nazwisko gracza</div>
+        <div class="float-left ml-60">Podaj numer na koszulce</div> <br>
         <div class="clearfix"></div>
-    </div>
-    <div class="rectangle">
-        <div class="writing"></div>
-    </div>
-    <div class="rectangle">
-        <div class="writing"></div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="rectangle2">pokaż</div>
-    <div class="rectangle2">pokaż</div>
-    <div class="rectangle2">pokaż</div>
+        <div class="rectangle">
+            <input type="text" name="team" placeholder="Arsenal" style="border: none; width: 196px; height: 50px;
+         text-align: center; background: gainsboro" autocomplete="off">
+        </div>
+        <div class="rectangle">
+            <input type="text" name="name" placeholder="Jesus" style="border: none; width: 196px; height: 50px;
+         text-align: center; background: gainsboro" autocomplete="off">
+        </div>
+        <div class="rectangle">
+            <input type="number" name="number" placeholder="9" style="border: none; width: 196px; height: 50px;
+         text-align: center; background: gainsboro; -moz-appearance: textfield;" autocomplete="off">
+        </div>
+        <div class="clearfix"></div>
+        <button type="submit" name="submit" class="rectangle2">Pokaż</button>
+        <button type="submit" name="submit" class="rectangle2">Pokaż</button>
+        <button type="submit" name="submit" class="rectangle2">Pokaż</button>
+    </form>
     <div class="clearfix"></div> <br> <br>
     <div class="filters">Wyniki</div>
     <div class="stripe"></div> <br> <br>
@@ -58,7 +73,6 @@ require_once "helpers.php";
     - Alison Beckere<br>
     - Alison Beckere<br>
     - Alison Beckere<br>
-
 </div>
 </body>
 </html>
