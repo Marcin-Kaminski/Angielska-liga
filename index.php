@@ -7,19 +7,25 @@ $dataUrl = "https://fantasy.premierleague.com/api/bootstrap-static/";
 $jsonData = file_get_contents($dataUrl);
 // zmian formatu json na tablicę (odkodowanie)
 $data = json_decode($jsonData, true);
-//v($data);
-//foreach ();
 
 if (isset($_POST['submit'])) {
     $team = $_POST['team'];
     $name = $_POST['name'];
     $number = $_POST['number'];
-    v($team);
-    v($name);
-    v($number);
+
+    $teams = $data['teams'];
+    foreach ($teams as $team) {
+        if ($team['name'] === 'Arsenal') {
+            v($team);
+        }
+    }
+    $players = $data['elements'];
+    foreach ($players as $player) {
+        if ($player['team'] === 1 and $player['element_type'] === 1) {
+            v($player['first_name'] . ' ' . $player['second_name']);
+        }
+    }
 }
-
-
 ?>
 
 <!doctype html>
