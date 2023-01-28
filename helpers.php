@@ -1,4 +1,8 @@
 <?php
+$dataUrl = "https://fantasy.premierleague.com/api/bootstrap-static/";
+$jsonData = file_get_contents($dataUrl);
+$data = json_decode($jsonData, true);
+$players = $data['elements'];
 
 function v($text)
 {
@@ -18,4 +22,11 @@ function rrr ($db,$suma,$id) {
         $name = 'Nie było pite';
     }
     return $name;
+}
+function vvv ($players, $team, $number) {
+    foreach ($players as $player) {
+        if ($player['team'] === $team and $player['element_type'] === $number) {
+            v($player['first_name'] . ' ' . $player['second_name']);
+        }
+    }
 }

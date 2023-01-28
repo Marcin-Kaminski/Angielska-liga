@@ -9,22 +9,23 @@ $jsonData = file_get_contents($dataUrl);
 $data = json_decode($jsonData, true);
 
 if (isset($_POST['submit'])) {
-    $team = $_POST['team'];
-    $name = $_POST['name'];
+    $teamName = $_POST['team'];
+    $playerName = $_POST['name'];
     $number = $_POST['number'];
 
     $teams = $data['teams'];
     foreach ($teams as $team) {
         if ($team['name'] === 'Arsenal') {
-            v($team);
+//            v($team);
         }
     }
-    $players = $data['elements'];
-    foreach ($players as $player) {
-        if ($player['team'] === 1 and $player['element_type'] === 1) {
-            v($player['first_name'] . ' ' . $player['second_name']);
+    $counter = 0;
+    foreach ($players as $player) {  // zliczanie ilosci graczy z druzyny
+        if ($player['team'] === 1) {
+            $counter++;
         }
     }
+
 }
 ?>
 
@@ -70,15 +71,46 @@ if (isset($_POST['submit'])) {
     <div class="clearfix"></div> <br> <br>
     <div class="filters">Wyniki</div>
     <div class="stripe"></div> <br> <br>
-    <div class="filters">Liverpool - skład</div> <br>
-    <div class="filters">Bramkarze:</div> <br>
-    - Alison Beckere<br>
-    - Alison Beckere<br>
-    - Alison Beckere<br> <br> <br>
-    <div class="filters">Obrońcy:</div> <br>
-    - Alison Beckere<br>
-    - Alison Beckere<br>
-    - Alison Beckere<br>
+    <div class="filters">
+        <?php
+        if (isset($_POST['submit'])) {
+            echo $teamName . ' - skład';
+        }
+        ?>
+    </div>
+    <?php
+    if (isset($_POST['submit'])) {
+        echo '<div class="filters">' . 'Wszystkich graczy:' . ' ' . $counter . '</div>';
+    }
+    ?>
+    <div class="filters">Bramkarze:</div>
+    <?php
+    if (isset($_POST['submit'])) {
+        vvv($players, 1, 1);
+    }
+    ?>
+    <div class="filters">Obrońcy:</div>
+    <?php
+    if (isset($_POST['submit'])) {
+        vvv($players, 1, 2);
+    }
+    ?>
+    <div class="filters">Pomocnicy:</div>
+    <?php
+    if (isset($_POST['submit'])) {
+        vvv($players, 1, 3);
+    }
+    ?>
+    <div class="filters">Napastnicy:</div>
+    <?php
+    if (isset($_POST['submit'])) {
+        vvv($players, 1, 4);
+    }
+    ?>
+
+
+
+
 </div>
 </body>
 </html>
