@@ -14,19 +14,30 @@ if (isset($_POST['submit'])) {
     $number = $_POST['number'];
 
     $teams = $data['teams'];
-    foreach ($teams as $team) {
-        if ($team['name'] === 'Arsenal') {
-//            v($team);
-        }
+    foreach ($teams as $key => $team) {
+//        if ($team['name'] === 'Arsenal') {
+//            echo $key;
+//        }
+    }
+    $teams = array("Arsenal" => 1, "Aston Villa" => 2, "Bournemouth" => 3, "Brentford" => 4, "Brighton" => 5,
+    "Chelsea" => 6, "Crystal Palace" => 7, "Everton" => 8, "Fulham" => 9, "Leicester" => 10, "Leeds" => 11,
+    "Liverpool" => 12, "Manchester City" => 13, "Manchester United" => 14, "Newcastle" => 15,
+        "Nottingham Forest " => 16, "Southampton" => 17, "Spurs" => 18, "West Ham" => 19, "Wolves" => 20);
+    if (array_key_exists($teamName, $teams)) {
+        $teamId = $teams[$teamName];
+        v($teamId);
+    } else {
+        $teamId = "Drużyna nie została znaleziona";
     }
     $counter = 0;
+    $players = $data['elements'];
     foreach ($players as $player) {  // zliczanie ilosci graczy z druzyny
-        if ($player['team'] === 1) {
+        if ($player['team'] === $teamId) {
             $counter++;
         }
     }
-
 }
+
 ?>
 
 <!doctype html>
@@ -83,28 +94,28 @@ if (isset($_POST['submit'])) {
         echo '<div class="filters">' . 'Wszystkich graczy:' . ' ' . $counter . '</div>';
     }
     ?>
-    <div class="filters">Bramkarze:</div>
     <?php
-    if (isset($_POST['submit'])) {
-        vvv($players, 1, 1);
+    echo '<div class="filters">' . 'Bramkarze:' . '</div>';
+    if (isset($_POST['team'])) {
+        vvv($players, $teamId, 1);
     }
     ?>
     <div class="filters">Obrońcy:</div>
     <?php
     if (isset($_POST['submit'])) {
-        vvv($players, 1, 2);
+        vvv($players, $teamId, 2);
     }
     ?>
     <div class="filters">Pomocnicy:</div>
     <?php
     if (isset($_POST['submit'])) {
-        vvv($players, 1, 3);
+        vvv($players, $teamId, 3);
     }
     ?>
     <div class="filters">Napastnicy:</div>
     <?php
     if (isset($_POST['submit'])) {
-        vvv($players, 1, 4);
+        vvv($players, $teamId, 4);
     }
     ?>
 
