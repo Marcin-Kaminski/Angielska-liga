@@ -8,35 +8,34 @@ $jsonData = file_get_contents($dataUrl);
 // zmian formatu json na tablicę (odkodowanie)
 $data = json_decode($jsonData, true);
 
+$teamId = null;
 if (isset($_POST['submit'])) {
     $teamName = $_POST['team'];
     $playerName = $_POST['name'];
     $number = $_POST['number'];
 
     $teams = $data['teams'];
-    foreach ($teams as $key => $team) {
+//    foreach ($teams as $key => $team) {
 //        if ($team['name'] === 'Arsenal') {
 //            echo $key;
 //        }
+//    }
+    foreach ($teams as $team) {
+        if ($teamName === $team['name']) {
+            $teamId = $team['id'];
+        }
     }
-    $teams = array("Arsenal" => 1, "Aston Villa" => 2, "Bournemouth" => 3, "Brentford" => 4, "Brighton" => 5,
-    "Chelsea" => 6, "Crystal Palace" => 7, "Everton" => 8, "Fulham" => 9, "Leicester" => 10, "Leeds" => 11,
-    "Liverpool" => 12, "Manchester City" => 13, "Manchester United" => 14, "Newcastle" => 15,
-        "Nottingham Forest " => 16, "Southampton" => 17, "Spurs" => 18, "West Ham" => 19, "Wolves" => 20);
-    if (array_key_exists($teamName, $teams)) {
-        $teamId = $teams[$teamName];
-        v($teamId);
-    } else {
-        $teamId = "Drużyna nie została znaleziona";
-    }
-    $counter = 0;
-    $players = $data['elements'];
-    foreach ($players as $player) {  // zliczanie ilosci graczy z druzyny
-        if ($player['team'] === $teamId) {
-            $counter++;
+    if (!is_null($teamId)) {
+        $counter = 0;
+        $players = $data['elements'];
+        foreach ($players as $player) {  // zliczanie ilosci graczy z druzyny
+            if ($player['team'] === $teamId) {
+                $counter++;
+            }
         }
     }
 }
+
 
 ?>
 
@@ -82,40 +81,21 @@ if (isset($_POST['submit'])) {
     <div class="clearfix"></div> <br> <br>
     <div class="filters">Wyniki</div>
     <div class="stripe"></div> <br> <br>
-    <div class="filters">
-        <?php
-        if (isset($_POST['submit'])) {
-            echo $teamName . ' - skład';
-        }
-        ?>
-    </div>
+
     <?php
-    if (isset($_POST['submit'])) {
-        echo '<div class="filters">' . 'Wszystkich graczy:' . ' ' . $counter . '</div>';
-    }
-    ?>
-    <?php
-    echo '<div class="filters">' . 'Bramkarze:' . '</div>';
-    if (isset($_POST['team'])) {
+    if (!is_null($teamId)) {
+        echo '<div class="filters">' . $teamName . ' - skład' . '</div>' .
+            '<div class="filters">' . 'Wszystkich graczy:' . ' ' . $counter . '</div>' .
+            '<div class="filters">' . 'Bramkarze:' . '</div>';
         vvv($players, $teamId, 1);
-    }
-    ?>
-    <div class="filters">Obrońcy:</div>
-    <?php
-    if (isset($_POST['submit'])) {
+        echo '<div class="filters">' . 'Obrońcy:' . '</div>';
         vvv($players, $teamId, 2);
-    }
-    ?>
-    <div class="filters">Pomocnicy:</div>
-    <?php
-    if (isset($_POST['submit'])) {
+        echo '<div class="filters">' . 'Pomocnicy:' . '</div>';
         vvv($players, $teamId, 3);
-    }
-    ?>
-    <div class="filters">Napastnicy:</div>
-    <?php
-    if (isset($_POST['submit'])) {
+        echo '<div class="filters">' . 'Napastnicy:' . '</div>';
         vvv($players, $teamId, 4);
+    } else {
+        echo 'Nie znaleziono drużyny';
     }
     ?>
 
