@@ -33,19 +33,15 @@ if (isset($_POST['submitTeam']) or isset($_POST['submitPlayer']) or isset($_POST
     foreach ($players as $player) { // znalezienie gracza
         if ($playerName === $player['second_name']) {
             $playerFullName = $player['first_name'] . ' ' . $player['second_name'];
+            $playerTeam = $player['team'];
+            $playerGoals = $player['goals_scored'];
+            $playerAssists = $player['assists'];
+            $playerOwnGoals = $player['own_goals'];
+            $playerYellowCards = $player['yellow_cards'];
+            $playerRedCards = $player['red_cards'];
         }
     }
     if (isset($playerFullName)) {
-        foreach ($players as $player) {
-            if ($playerName === $player['second_name']) {
-                $playerTeam = $player['team'];
-                $playerGoals = $player['goals_scored'];
-                $playerAssists = $player['assists'];
-                $playerOwnGoals = $player['own_goals'];
-                $playerYellowCards = $player['yellow_cards'];
-                $playerRedCards = $player['red_cards'];
-            }
-        }
         foreach ($teams as $team) {
             if ($playerTeam === $team['id']) {
                 $playerTeam = $team['name'];
@@ -96,7 +92,7 @@ if (isset($_POST['submitTeam']) or isset($_POST['submitPlayer']) or isset($_POST
     </form>
     <div class="clearfix"></div> <br> <br>
     <div class="filters">Wyniki</div>
-    <div class="stripe"></div> <br> <br>
+    <div class="stripe"></div> <br>
 
     <?php
     if (isset($_POST['submitTeam'])) {
